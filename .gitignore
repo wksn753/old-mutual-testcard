@@ -1,5 +1,6 @@
-node_modules/
-dist/
-.pnpm-store/
-public/ext/*
-!public/ext/.gitkeep
+node_modules
+.next
+out
+.env*
+*.tsbuildinfo
+.DS_Store

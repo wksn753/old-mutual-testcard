@@ -1,12 +1,12 @@
-# Old Mutual Uganda — Payments Portal Demo (v3.0)
+# Old Mutual Uganda — Payments Portal (v5)
 
-An **Ext JS Classic + pnpm + Vite** frontend prototype covering **insurance card payments** and **Old Mutual Investment Group (OMIG) unit trust deposits**. It uses the two brand PNGs supplied for this demonstration.
+A responsive **Next.js App Router + TypeScript + shadcn/ui + Tailwind CSS v4 + Geist** demonstration of Old Mutual Uganda insurance and OMIG unit trust **simulated card payments**.
 
-> **DEMO / UNOFFICIAL:** This project is not an official Old Mutual website, payment provider, bank integration, or investment accounting system. It does not accept payments. Do not use real card numbers or personal account data.
+> **UNOFFICIAL DEMONSTRATION:** This is not a real Old Mutual payment channel. It does **not** connect to a payment gateway, bank, insurance system or investment account. **Do not enter real card, policy, investor, or personal information.** Branding was supplied by the requester for demonstration use.
 
 ## Quick start
 
-Requirements: Node.js 20+ and pnpm. In this folder:
+Requirements: **Node.js 20.9+** and **pnpm**.
 
 ```bash
 corepack enable
@@ -14,80 +14,89 @@ pnpm install
 pnpm dev
 ```
 
-Visit **http://localhost:5173**. On Windows, you can also use `START-WINDOWS.bat` after installing Node.js.
-
-For a production-style frontend build:
+Open **http://localhost:3000**.
 
 ```bash
+pnpm typecheck
 pnpm build
-pnpm preview
+pnpm start
 ```
 
-## What's new in v2
+The first install/build requires registry access, and **`next/font/google` needs Google Fonts access at build time** to download and self-host Geist and Geist Mono. Once built, pages do not need to fetch the fonts in users' browsers.
 
-- **Old Mutual branding:** the actual uploaded wordmark and emblem are in `public/brand`; primary green `#009677`, neutral backgrounds and matching navigation.
-- **Overview:** separate entry points for insurance payments and OMIG deposits, demo totals and recent activity.
-- **Insurance:** policy number, policyholder name, email, payment type (premium / renewal / top-up) and UGX amount.
-- **OMIG investments:** investor/client number, investor name and email, contribution type (initial/additional), scheme selector and deposit amount.
-- **Four CMA-listed Ugandan OMIG unit trust schemes:** Umbrella Fund, Money Market Fund, Balanced Fund, Dollar Fund. The first three use UGX in this demo, and the Dollar Fund uses USD, with no FX conversion or cross-currency total.
-- **Payment summary:** context-aware scheme / policy description, amount, zero *demo* fee and currency. Zero demo fees are **not** a claim about actual card processing charges.
-- **Card scenarios:** simulated approved / declined / verification-required cards and a fixed demonstration OTP.
-- **History:** filter by service or status and search by fund, investor/policy ref or payment ref; Ext JS grid when a compatible SDK is available, otherwise an accessible HTML table.
-- **Branded A4 printable receipts (v3):** the supplied Old Mutual logo is printed at the top left, with a two-column company contact letterhead modelled after the supplied Travel Insurance KYC sample, a central receipt title, green table headings, policy/investor details, payment status and total. The entire portal UI and modal are excluded from printing. Explicitly marked as simulated and **NOT proof of payment or unit allocation**.
+## What changed from v4
 
-### Investment fund schemes
+The prior project was **Vite + Ext JS Classic with a native fallback**. Your new Next.js / shadcn / `next/font/google` requirements are incompatible with retaining that old Vite structure as-is. This v5 project is therefore a **framework migration**, replacing Ext JS with React and shadcn-style Radix UI controls. It is **not** an Ext JS project anymore.
 
-The scheme names are based on the [Uganda Capital Markets Authority's licensed-firms listing](https://cmauganda.co.ug/cma-licensed-firms/). The demonstration does not query Old Mutual investor accounts or verify product eligibility, minimum investment, fees, pricing, redemption terms or account ownership. These details must be implemented and approved separately before any live payment flow.
+- `app/layout.tsx`: imports `Geist` + `Geist_Mono` from `next/font/google`; sets variables `--font-geist-sans`, `--font-geist-mono`; adds both to body with `antialiased` and `display: "swap"`.
+- `app/globals.css`: Tailwind **v4** `@theme inline` maps sans and mono families to Geist with system fallbacks; defines the current Old Mutual brand palette including `#009677`, semantic colors, and base typography.
+- `components/ui/typography.tsx`: reusable **H1, H2, H3, Lead, P, Muted, InlineCode** with `cn()` and forwarding `className`/native element props.
+- Reusable shadcn-style components: `Button`, `Input`, `Label`, `Select`, `Dialog`, `Badge`, and `Table`.
+- Removed the top-right **Demo Environment** badge from the UI; a small footer disclaimer remains, as do clear warnings on the actual simulation and printed receipts.
+- Typography refinements: Geist 600 headings, tighter tracking, less forced uppercase, 16px body line-height 1.6, readable 14px form text, and balanced headings.
+- Current color palette, original uploaded logos, sidebar structure, insurance screens, OMIG flows, local history, and A4 branded receipt design are retained.
 
-## Test cards
+## Functionality
 
-All tests use a *future* expiry (for example `12/29`, while still valid) and the CVV `123`. Use the **Fill test card** button for the approved scenario.
+### Insurance
 
-| Scenario | Sandbox card | Result |
-| --- | --- | --- |
-| Approved | `4242 4242 4242 4242` | Simulated approval |
-| Declined | `4000 0000 0000 0002` | Simulated decline |
-| Challenge | `4000 0000 0000 3220` | Enter demo OTP `123456` |
+- Policy number, policyholder, email, amount (UGX)
+- Premium, renewal, or top-up
+- Step-by-step checkout and context-sensitive summary
 
-The UI accepts **only the three listed card sequences**. It deliberately has **no gateway, banking API, authentication, backend, real 3-D Secure or card tokenization**.
+### OMIG unit trusts
 
-## Ext JS framework installation
+- Investor / client reference and name, email
+- Umbrella Fund, Money Market Fund, Balanced Fund (**UGX**) and Dollar Fund (**USD**)
+- Initial deposit / additional deposit
+- Separate UGX and USD amounts; **no FX conversion or cross-currency totals**
 
-The interface creates genuine `Ext.form.field.Text`, `Ext.form.field.Number`, `Ext.form.field.ComboBox` and `Ext.grid.Panel` controls **when Ext JS Classic is available**. However, Sencha Ext JS is separately licensed and is not redistributed in this project.
+The names are demo product choices, **not** proof of active fund eligibility, prices, minimums or account verification. Real investment funds can only be credited after independent confirmation by the relevant payment and investment systems.
 
-The runtime checks the following sources in order:
+### Sandbox card outcomes
 
-1. `/public/ext/build/ext-all.js` and corresponding Triton theme assets;
-2. `https://cdn.sencha.com/ext/gpl/7.0.0/build/ext-all.js` with the corresponding theme, if accessible;
-3. If neither is accessible, fully functional **native controls** as an offline-friendly fallback.
+| Scenario | Card number | Expiry | CVV | Result |
+|---|---|---|---|---|
+| Approved | `4242 4242 4242 4242` | `12/29` | `123` | Local simulated approval |
+| Declined | `4000 0000 0000 0002` | `12/29` | `123` | Local simulated decline |
+| Verification | `4000 0000 0000 3220` | `12/29` | `123` | Fixed test OTP `123456` |
 
-To reliably use Ext JS:
+Only these card sequences are accepted. Real card entry is rejected. PAN, expiry, CVV, and receipt email are **not sent to any backend or stored in history**. Payment simulations and challenges occur only in client-side memory. History is stored in browser `localStorage` at `om_payments_demo_v2` (maximum 150 entries), compatible with the v4 demo records.
 
-1. Obtain an appropriate Ext JS Classic SDK under the **correct license** (commercial or GPL subject to your own licensing obligations).
-2. Copy the SDK's `build` directory into `public/ext/build`.
-3. Verify that `public/ext/build/ext-all.js` and `public/ext/build/classic/theme-triton/resources/theme-triton-all.css` exist.
-4. Start with `pnpm dev`; the footer should say `UI: Ext JS Classic` rather than `Native fallback`.
+### Transactions and receipts
 
-The hosted Sencha assets may be unavailable due to network, licensing or distribution changes. **pnpm handles the build tooling; it does not automatically install proprietary Ext JS.**
+- Overview with approved UGX volume, total records, success rate, and recent activity
+- Search and filter by service/status; click a row to view the demo receipt
+- Receipt modal with simulated status and transaction details
+- **Branded A4 print layout:** supplied Old Mutual wordmark (left), Kampala contact block (right), centered heading, brand-green data header, amounts and disclaimer
+- Click **Print demo receipt** and select **Save as PDF**. The print sheet uses the same `next/font` Geist family as the portal.
 
-## Data and security
+There is no real standalone PDF-generation backend. PDF output comes from the browser's print-to-PDF facility.
 
-- Only simulated reference/account and non-sensitive payment metadata are saved to browser `localStorage` (maximum 150 records). Payment card PAN, expiry, CVV and receipt email **are not persisted**. Inputs are cleared before simulated processing and the simulated OTP retains only a sanitized transaction record.
-- Demo receipts are printable but cannot be treated as evidence of a card charge, unit subscription, allocation, or posted deposit.
-- The demonstration is entirely client-side; no authorization, tokenization, KYC/AML, server-side validation, reconciliation, idempotency, fraud controls, 3DS, webhooks or payment settlement are performed.
-- **Production architecture:** integrate a compliant hosted/tokenized card checkout, authenticate/authorize investor access, confirm payment server-side, and allocate investment units only after independent settlement and investment-platform confirmation. Never collect/store raw PAN or CVV on your own server.
-- Files in `public/brand` were supplied by the requester for this demo; confirm trademark/brand usage permission before public deployment.
-
-## Project map
+## Project structure
 
 ```text
-old-mutual-card-demo/
-  index.html                 Main screen markup
-  src/main.js                Ext JS setup and simulated payment logic
-  src/styles.css             Responsive Old Mutual themed design
-  public/brand/              Supplied Old Mutual logos
-  public/ext/                SDK placeholder (licensed framework not bundled)
-  package.json               Vite and pnpm scripts
-  START-WINDOWS.bat          Optional Windows launcher
-  docs/                     Screenshots of portal and branded receipt
+app/
+  layout.tsx               # next/font/google with Geist Sans and Geist Mono
+  globals.css              # Tailwind v4, Old Mutual tokens, typography, responsive + print CSS
+  page.tsx                 # App Router entry point
+components/
+  ui/                      # shadcn-style reusable primitives and typography
+  portal/payments-portal.tsx
+lib/
+  payments.ts              # validations, demo fixtures, currency, local history, test cards
+  utils.ts                 # cn helper
+public/brand/              # Original user-supplied Old Mutual logos
+components.json            # shadcn configuration
+postcss.config.mjs         # Tailwind v4 PostCSS integration
 ```
+
+## Checklist before deployment
+
+1. Run `pnpm install`, `pnpm typecheck`, and `pnpm build` with network access.
+2. Exercise insurance and OMIG payment flows at mobile and desktop breakpoints.
+3. Confirm the 3 card outcomes, fixed OTP, rejection of non-test card numbers, transaction search/filter and browser persistence.
+4. Verify print layout in Chrome or Edge using A4 / Save as PDF with **Background graphics** enabled.
+5. Confirm the company legal entity/contact wording and use of brand assets with Old Mutual before distribution.
+
+**Production is out of scope.** Live payments require an approved PCI-compliant hosted checkout, server-side payment verification, authentication, KYC/AML, transaction idempotency, reconciliation, webhooks, audit controls and investment unit-allocation confirmation. Never persist or handle raw cardholder PAN/CVV on application servers.
