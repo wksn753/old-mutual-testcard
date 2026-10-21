@@ -4,6 +4,10 @@ A responsive **Next.js App Router + TypeScript + shadcn/ui + Tailwind CSS v4 + G
 
 > **UNOFFICIAL DEMONSTRATION:** This is not a real Old Mutual payment channel. It does **not** connect to a payment gateway, bank, insurance system or investment account. **Do not enter real card, policy, investor, or personal information.** Branding was supplied by the requester for demonstration use.
 
+## Vercel deploy repair (v5.1)
+
+The Vite -> Next.js migration can leave a tracked **Vite-era `pnpm-lock.yaml`** in the GitHub repository. That mismatch breaks the CI dependency install. See [DEPLOYMENT-FIX.md](DEPLOYMENT-FIX.md) for the **permanent regenerate-and-commit fix** and temporary `.npmrc` install unblocking instructions. The `.npmrc` bypass is temporary; delete it once the correct lockfile has been committed.
+
 ## Quick start
 
 Requirements: **Node.js 20.9+** and **pnpm**.
