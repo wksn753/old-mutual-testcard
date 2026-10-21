@@ -1,6 +1,13 @@
-# Old Mutual Uganda — Payments Portal (v5)
+## v5.2 — print isolation and typography (2026-10-21)
 
-A responsive **Next.js App Router + TypeScript + shadcn/ui + Tailwind CSS v4 + Geist** demonstration of Old Mutual Uganda insurance and OMIG unit trust **simulated card payments**.
+- **Fixed printed receipts:** printing from the payment result dialog now renders **only** the Old Mutual branded A4 receipt. The dialog, dark Radix overlay, application shell, and other on-screen controls do not appear in the PDF.
+- **Century Gothic**, **10pt body text** throughout the portal and receipt. Century Gothic is a commercial system font: it is **not embedded or redistributed** by the project. Install it on the computer producing the PDF to ensure an exact match; otherwise the browser will use a close sans-serif fallback.
+- The green Old Mutual design and both insurance and OMIG demo payment flows remain unchanged.
+- Print from **Print demo receipt**; in Chrome/Edge print options, turn off **Headers and footers** if you don't want the URL/date in the page margins. Enable **Background graphics** if the green table headings don't appear in color.
+
+# Old Mutual Uganda — Payments Portal (v5.2)
+
+A responsive **Next.js App Router + TypeScript + shadcn/ui + Tailwind CSS v4 + Century Gothic** demonstration of Old Mutual Uganda insurance and OMIG unit trust **simulated card payments**.
 
 > **UNOFFICIAL DEMONSTRATION:** This is not a real Old Mutual payment channel. It does **not** connect to a payment gateway, bank, insurance system or investment account. **Do not enter real card, policy, investor, or personal information.** Branding was supplied by the requester for demonstration use.
 
@@ -26,18 +33,18 @@ pnpm build
 pnpm start
 ```
 
-The first install/build requires registry access, and **`next/font/google` needs Google Fonts access at build time** to download and self-host Geist and Geist Mono. Once built, pages do not need to fetch the fonts in users' browsers.
+The first install/build requires npm registry access. Century Gothic is referenced as a **system font**, so there is no external Google Fonts download and no font file is bundled or redistributed.
 
 ## What changed from v4
 
-The prior project was **Vite + Ext JS Classic with a native fallback**. Your new Next.js / shadcn / `next/font/google` requirements are incompatible with retaining that old Vite structure as-is. This v5 project is therefore a **framework migration**, replacing Ext JS with React and shadcn-style Radix UI controls. It is **not** an Ext JS project anymore.
+The prior project was **Vite + Ext JS Classic with a native fallback**. The v5 migration replaced Ext JS with React and shadcn-style Radix UI controls. v5.2 retains Next.js and Tailwind v4 and replaces Geist with the user-requested Century Gothic system font.
 
-- `app/layout.tsx`: imports `Geist` + `Geist_Mono` from `next/font/google`; sets variables `--font-geist-sans`, `--font-geist-mono`; adds both to body with `antialiased` and `display: "swap"`.
-- `app/globals.css`: Tailwind **v4** `@theme inline` maps sans and mono families to Geist with system fallbacks; defines the current Old Mutual brand palette including `#009677`, semantic colors, and base typography.
+- `app/layout.tsx`: uses the `font-sans antialiased` body class without fetching Google Fonts at build time.
+- `app/globals.css`: Tailwind **v4** `@theme inline` maps sans to the Century Gothic system font stack with geometric fallbacks, sets body text to **10pt**, and retains brand green `#009677`.
 - `components/ui/typography.tsx`: reusable **H1, H2, H3, Lead, P, Muted, InlineCode** with `cn()` and forwarding `className`/native element props.
 - Reusable shadcn-style components: `Button`, `Input`, `Label`, `Select`, `Dialog`, `Badge`, and `Table`.
 - Removed the top-right **Demo Environment** badge from the UI; a small footer disclaimer remains, as do clear warnings on the actual simulation and printed receipts.
-- Typography refinements: Geist 600 headings, tighter tracking, less forced uppercase, 16px body line-height 1.6, readable 14px form text, and balanced headings.
+- Typography refinements: Century Gothic headings and body, 10pt default body/form typography, readable line-height 1.6, and balanced headings.
 - Current color palette, original uploaded logos, sidebar structure, insurance screens, OMIG flows, local history, and A4 branded receipt design are retained.
 
 ## Functionality
@@ -73,7 +80,7 @@ Only these card sequences are accepted. Real card entry is rejected. PAN, expiry
 - Search and filter by service/status; click a row to view the demo receipt
 - Receipt modal with simulated status and transaction details
 - **Branded A4 print layout:** supplied Old Mutual wordmark (left), Kampala contact block (right), centered heading, brand-green data header, amounts and disclaimer
-- Click **Print demo receipt** and select **Save as PDF**. The print sheet uses the same `next/font` Geist family as the portal.
+- Click **Print demo receipt** and select **Save as PDF**. Print-only CSS hides the Radix confirmation dialog and overlay, showing only the branded A4 receipt in Century Gothic (or a local fallback).
 
 There is no real standalone PDF-generation backend. PDF output comes from the browser's print-to-PDF facility.
 
@@ -81,7 +88,7 @@ There is no real standalone PDF-generation backend. PDF output comes from the br
 
 ```text
 app/
-  layout.tsx               # next/font/google with Geist Sans and Geist Mono
+  layout.tsx               # Next.js root layout using font-sans
   globals.css              # Tailwind v4, Old Mutual tokens, typography, responsive + print CSS
   page.tsx                 # App Router entry point
 components/

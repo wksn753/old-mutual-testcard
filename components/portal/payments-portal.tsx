@@ -167,9 +167,13 @@ export function PaymentsPortal() {
   const verifyOtp=()=>{if(!pending)return;if(otp!=="123456"){setOtpError("Incorrect demo code. Use 123456.");return;}const t=pending;setPending(null);setOtp("");commit(t);};
   const copyReference=async()=>{if(!receipt)return;try{await navigator.clipboard.writeText(receipt.id);setCopied(true);}catch{setCopied(false);}};
   const printReceipt=()=>{
-    // Scope print-only CSS to the explicit receipt action. Normal browser Print still prints the portal.
+    if(!receipt) return;
+    // Radix renders the confirmation dialog in a body-level portal. The print
+    // stylesheet isolates only .portal-receipt-print and removes all portal
+    // siblings so the dialog/backdrop cannot cover the generated PDF.
     document.documentElement.classList.add("receipt-print-mode");
-    window.addEventListener("afterprint",()=>document.documentElement.classList.remove("receipt-print-mode"),{once:true});
+    const cleanup=()=>document.documentElement.classList.remove("receipt-print-mode");
+    window.addEventListener("afterprint",cleanup,{once:true});
     window.print();
   };
   const viewReceipt=(t:Transaction)=>{setReceipt(t);setCopied(false);setResultOpen(true);};
