@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#009677" />
+  <meta name="description" content="Old Mutual Uganda payments demo for insurance premiums and OMIG unit trust deposits. Simulation only." />
+  <title>Payments portal | Old Mutual — Demo</title>
+  <link rel="icon" type="image/png" href="/brand/old-mutual-emblem.png" />
+  <link rel="stylesheet" href="/src/styles.css" />
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body>
+<div class="app-shell">
+  <aside id="sidebar" class="sidebar" aria-label="Primary navigation">
+    <div class="brand-box">
+      <img class="wordmark" src="/brand/old-mutual-wordmark.png" alt="Old Mutual" />
+      <div class="brand-subtitle">UGANDA <span></span> PAYMENTS</div>
+    </div>
+    <div class="nav-group-label">YOUR WORKSPACE</div>
+    <nav class="nav-list" aria-label="Payments navigation">
+      <button type="button" data-route="overview" class="nav-link active"><span data-icon="overview"></span> Overview</button>
+      <div class="nav-subhead">MAKE A PAYMENT</div>
+      <button type="button" data-route="insurance" class="nav-link"><span data-icon="shield"></span> Insurance payments</button>
+      <button type="button" data-route="omig" class="nav-link"><span data-icon="trending-up"></span> OMIG investments</button>
+      <div class="nav-subhead">REPORTING</div>
+      <button type="button" data-route="transactions" class="nav-link"><span data-icon="receipt"></span> Transactions</button>
+    </nav>
+    <div class="sidebar-grow"></div>
+    <div class="sidebar-message"><div class="sidebar-mark"><img src="/brand/old-mutual-emblem.png" alt="" /></div><strong>Every payment, one place.</strong><p>Insurance and investments in a single demonstration workspace.</p></div>
+    <div class="sidebar-bottom"><span class="demo-dot"></span> DEMONSTRATION ONLY <small>v3.0</small></div>
+  </aside>
+  <div class="main-column">
+    <header class="topbar">
+      <div class="topbar-left"><button type="button" class="menu-button" id="menu-button" aria-label="Open navigation"><span data-icon="menu"></span></button><div class="breadcrumb">Old Mutual <span class="separator">/</span> <strong id="breadcrumb-current">Overview</strong></div></div>
+      <div class="topbar-actions"><span class="demo-badge"><span></span> DEMO ENVIRONMENT</span><div class="avatar" title="Demo workspace">OM</div></div>
+    </header>
+    <main class="main-content">
+      <section class="page-section active" id="page-overview" aria-labelledby="overview-title">
+        <div class="page-heading"><div class="eyebrow">OLD MUTUAL UGANDA <span></span> PAYMENT SERVICES</div><h1 id="overview-title">Payments made simple<span class="accent-dot">.</span></h1><p>Choose a service to make an insurance payment or top up an OMIG unit trust investment.</p></div>
+        <div class="hero"><div class="hero-content"><div class="hero-tag">ALL-IN-ONE PAYMENTS</div><h2>Pay today.<br /><em>Plan for tomorrow.</em></h2><p>A single, straightforward checkout experience for premiums and investment deposits.</p><div class="hero-actions"><button type="button" class="hero-primary" data-go="insurance">Pay insurance premium <span data-icon="arrow-right"></span></button><button type="button" class="hero-secondary" data-go="omig">Deposit to unit trust <span data-icon="arrow-right"></span></button></div></div><div class="hero-art" aria-hidden="true"><div class="hero-circle circle-back"></div><div class="hero-circle circle-front"></div><div class="hero-emblem"><img src="/brand/old-mutual-emblem.png" alt="" /></div></div></div>
+        <div class="overview-section-head"><div><h2>Payment services</h2><p>What would you like to pay for?</p></div></div>
+        <div class="service-grid">
+          <button type="button" class="service-item" data-go="insurance"><span class="service-symbol service-symbol-ins"><span data-icon="shield"></span></span><span class="service-body"><strong>Insurance payments</strong><small>Premiums, renewals and policy top-ups</small><span class="service-action">Make a payment <span data-icon="arrow-right"></span></span></span></button>
+          <button type="button" class="service-item" data-go="omig"><span class="service-symbol service-symbol-omig"><span data-icon="trending-up"></span></span><span class="service-body"><strong>OMIG unit trusts</strong><small>Deposit to your investment fund</small><span class="service-action">Make a deposit <span data-icon="arrow-right"></span></span></span></button>
+        </div>
+        <div class="overview-section-head overview-history-header"><div><h2>Demo activity</h2><p>Simulated transactions from this browser</p></div><button type="button" class="view-link" data-go="transactions">All transactions <span data-icon="arrow-right"></span></button></div>
+        <div class="metrics-grid"><div class="metric"><span>Successful UGX payments</span><strong id="metric-volume">UGX 0</strong><small id="metric-volume-note">Insurance and OMIG deposits</small></div><div class="metric"><span>Completed transactions</span><strong id="metric-count">0</strong><small>Sandbox transactions</small></div><div class="metric"><span>Approval rate</span><strong id="metric-rate">0%</strong><small>Based on demo outcomes</small></div></div>
+        <div class="recent-section"><div class="recent-header"><h3>Recent payments</h3><button type="button" class="view-link" data-go="transactions">View history <span data-icon="arrow-right"></span></button></div><div id="recent-activity"></div></div>
+      </section>
+      <section class="page-section" id="page-payment" aria-labelledby="payment-title">
+        <div class="page-heading page-heading-payment"><div class="eyebrow" id="payment-eyebrow">OLD MUTUAL <span></span> INSURANCE</div><h1 id="payment-title">Insurance payment<span class="accent-dot">.</span></h1><p id="payment-subtitle">Pay a policy premium, renewal or top-up with a sandbox card.</p></div>
+        <div class="payment-progress" aria-label="Payment steps"><div class="progress-step current"><b>01</b><span>Payment details</span></div><div class="progress-line"></div><div class="progress-step"><b>02</b><span>Card verification</span></div><div class="progress-line"></div><div class="progress-step"><b>03</b><span>Confirmation</span></div></div>
+        <div class="checkout-layout">
+          <div class="checkout-main">
+            <section class="form-panel" aria-labelledby="details-title"><div class="panel-heading"><span class="panel-number">01</span><div><h2 id="details-title">Payment details</h2><p id="details-subtitle">Tell us which policy you're paying for.</p></div></div>
+              <div class="insurance-fields field-grid" id="insurance-fields">
+                <div class="field full"><label for="field-policy">Policy number <span>*</span></label><div class="control-mount" id="field-policy"></div></div>
+                <div class="field"><label for="field-ins-name">Policyholder name <span>*</span></label><div class="control-mount" id="field-ins-name"></div></div>
+                <div class="field"><label for="field-ins-email">Email for receipt <span>*</span></label><div class="control-mount" id="field-ins-email"></div></div>
+                <div class="field"><label for="field-type">Payment type <span>*</span></label><div class="control-mount" id="field-type"></div></div>
+                <div class="field"><label for="field-ins-amount">Amount (UGX) <span>*</span></label><div class="control-mount" id="field-ins-amount"></div></div>
+              </div>
+              <div class="investment-fields" id="investment-fields" hidden>
+                <div class="field-grid">
+                  <div class="field full"><label for="field-fund">Unit trust scheme <span>*</span></label><div class="control-mount" id="field-fund"></div><p class="field-hint" id="fund-description">Umbrella Fund Unit Trust Scheme</p></div>
+                  <div class="field"><label for="field-investor">Investor / client number <span>*</span></label><div class="control-mount" id="field-investor"></div></div>
+                  <div class="field"><label for="field-contribution">Deposit type <span>*</span></label><div class="control-mount" id="field-contribution"></div></div>
+                  <div class="field"><label for="field-investor-name">Investor name <span>*</span></label><div class="control-mount" id="field-investor-name"></div></div>
+                  <div class="field"><label for="field-investor-email">Email for receipt <span>*</span></label><div class="control-mount" id="field-investor-email"></div></div>
+                  <div class="field full"><label for="field-invest-amount" id="investment-amount-label">Deposit amount (UGX) <span>*</span></label><div class="control-mount" id="field-invest-amount"></div><p class="field-hint" id="investment-amount-note">Amounts are illustrative. No money is allocated to a unit trust.</p></div>
+                </div>
+                <div class="investment-disclosure"><span data-icon="info"></span><p>Use an existing <strong>test investor reference</strong>. This demo does not open an investment account, purchase units, quote prices or confirm allocation.</p></div>
+              </div>
+            </section>
+            <section class="form-panel" aria-labelledby="card-details-title"><div class="panel-heading"><span class="panel-number">02</span><div><h2 id="card-details-title">Card payment</h2><p>Enter demonstration card details to simulate checkout.</p></div></div>
+              <div class="card-method"><span class="card-method-icon"><span data-icon="credit-card"></span></span><div><strong>Debit or credit card</strong><small>Sandbox Visa / Mastercard scenarios</small></div><span class="method-tick" data-icon="check"></span></div>
+              <div class="card-fields field-grid"><div class="field full"><div class="field-title"><label for="field-card">Test card number <span>*</span></label><button type="button" class="link-button" id="fill-test-card">Fill test card</button></div><div class="control-mount" id="field-card"></div></div><div class="field full"><label for="field-cardholder">Name on test card <span>*</span></label><div class="control-mount" id="field-cardholder"></div></div><div class="field"><label for="field-expiry">Expiry (MM/YY) <span>*</span></label><div class="control-mount" id="field-expiry"></div></div><div class="field"><label for="field-cvv">Test CVV <span>*</span></label><div class="control-mount" id="field-cvv"></div></div></div>
+              <div class="sandbox-note"><span data-icon="info"></span><div><strong>Use demonstration cards only.</strong><p>Approved: <code>4242 4242 4242 4242</code> · Declined: <code>4000 0000 0000 0002</code> · Verification: <code>4000 0000 0000 3220</code></p></div></div>
+            </section>
+          </div>
+          <aside class="checkout-side" aria-label="Payment summary"><div class="summary-box"><div class="summary-overline">YOUR PAYMENT</div><h2>Order summary</h2><div class="summary-product"><span class="summary-product-icon" data-icon="receipt"></span><div><strong id="summary-product">Insurance premium</strong><small id="summary-subproduct">Old Mutual Insurance</small></div></div><div class="summary-divider"></div><div class="summary-row"><span id="summary-label">Premium amount</span><strong id="summary-premium">UGX 185,000</strong></div><div class="summary-row"><span>Demo processing fee</span><strong id="summary-fee">UGX 0</strong></div><div class="summary-divider"></div><div class="summary-total"><span>Total to simulate</span><strong id="summary-total">UGX 185,000</strong></div><p class="summary-currency" id="summary-currency">Currency: Ugandan shillings (UGX)</p><div class="error-message" id="form-error" role="alert" hidden></div><button type="button" class="pay-button" id="pay-button"><span data-icon="lock"></span> <span id="pay-button-label">Simulate UGX 185,000</span><span data-icon="arrow-right"></span></button><p class="summary-legal">This is a prototype checkout. Do not enter a real payment card or personal investor details.</p></div><div class="safe-note"><span data-icon="shield"></span><div><strong>Test environment</strong><p>No payment gateway connected. No real premiums or investments are processed.</p></div></div></aside>
+        </div>
+      </section>
+      <section class="page-section" id="page-transactions" aria-labelledby="transactions-title">
+        <div class="page-heading"><div class="eyebrow">OLD MUTUAL UGANDA <span></span> TRANSACTIONS</div><h1 id="transactions-title">Transaction history<span class="accent-dot">.</span></h1><p>Track simulated insurance and investment payments.</p></div>
+        <div class="history-panel"><div class="history-toolbar"><div><h2>Payments</h2><p id="transaction-count">0 transactions</p></div><div class="history-filters"><input type="search" id="transaction-search" class="filter-input" aria-label="Search transactions" placeholder="Search reference, fund, policy…" /><select id="transaction-category" class="filter-input" aria-label="Filter by service"><option value="all">All services</option><option value="INSURANCE">Insurance</option><option value="OMIG">OMIG unit trusts</option></select><select id="transaction-status" class="filter-input" aria-label="Filter by status"><option value="all">All statuses</option><option value="Approved">Approved</option><option value="Declined">Declined</option></select></div></div><div class="grid-mount" id="transaction-grid"></div><div class="history-foot">Demo records are saved only in your browser. Clear browser site data to reset them.</div></div>
+      </section>
+    </main>
+    <footer class="app-footer"><span>Old Mutual Uganda · Unofficial demonstration prototype</span><span>Not a payment channel <span class="footer-separator">•</span> UI: <strong id="runtime-label">Loading…</strong></span></footer>
+  </div>
+</div>
+<section id="print-receipt-sheet" aria-label="Printable demo receipt"></section>
+<div class="overlay" id="result-modal" role="presentation" hidden><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="result-title"><button type="button" class="modal-close" data-close-modal aria-label="Close">×</button><div id="modal-content"></div></div></div>
+<div class="overlay" id="otp-modal" role="presentation" hidden><div class="dialog otp-dialog" role="dialog" aria-modal="true" aria-labelledby="otp-title"><button type="button" class="modal-close" id="close-otp" aria-label="Close">×</button><div class="result-icon"><span data-icon="lock"></span></div><h2 id="otp-title">Verify demo payment</h2><p class="dialog-copy">Enter the test verification code to approve this simulated transaction.</p><label class="otp-label" for="otp-input">Demo one-time code</label><input type="text" id="otp-input" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="6-digit test code"/><p class="otp-hint">Use <strong>123456</strong> to continue</p><p class="otp-error" id="otp-error" role="alert"></p><button type="button" id="otp-verify" class="pay-button">Verify demo payment <span data-icon="arrow-right"></span></button><button type="button" class="cancel-link" id="otp-cancel">Cancel</button></div></div>
+</body>
+</html>
